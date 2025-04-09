@@ -11,12 +11,12 @@ enum TerrainID {
 @export var _bg_color: Color
 @export var _wall_layer: TileMapLayer
 @export var _floor_layer: TileMapLayer
-@export var _visible_wall_layer: TileMapLayer
-@export var _visible_floor_layer: TileMapLayer
+@export var _visible_wall_layer: ModulateTileLayer
+@export var _visible_floor_layer: ModulateTileLayer
 
 var visible_tiles: Dictionary[Vector2i, bool] = {}
 
-@onready var VISIBLE_LAYERS: Array[TileMapLayer] = [_visible_wall_layer, _visible_floor_layer]
+@onready var VISIBLE_LAYERS: Array[ModulateTileLayer] = [_visible_wall_layer, _visible_floor_layer]
 @onready var LAYERS: Array[TileMapLayer] = [_wall_layer, _floor_layer]
 
 func _ready() -> void:
@@ -31,12 +31,11 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	# TODO: Later fix bug with incorrect fading
 	for visible_layer in VISIBLE_LAYERS:
-		for cell in visible_layer.get_used_cells():
-			if cell not in visible_tiles:
-				var tiledata = visible_layer.get_cell_tile_data(cell)
-				tiledata.modulate.a -= delta * 1
-				if tiledata.modulate.a <= 0:
-					visible_layer.set_cell(cell, -1)
+		visible_layer.visible_tiles = visible_tiles
+		for cell in visible_layer.cell_alphas:
+			if visible_layer.cell_alphas[cell] <= 0:
+				visible_layer.set_cell(cell, -1)
+				visible_layer.cell_alphas.erase(cell)
 
 
 func set_visible_tiles(cells: Array[Vector2i]):
@@ -48,13 +47,9 @@ func set_visible_tiles(cells: Array[Vector2i]):
 		visible_tiles[cell] = true
 		for i in len(VISIBLE_LAYERS):
 			VISIBLE_LAYERS[i].set_cell(cell, LAYERS[i].get_cell_source_id(cell), LAYERS[i].get_cell_atlas_coords(cell), LAYERS[i].get_cell_alternative_tile(cell))
-	
-	for cell in visible_tiles:
-		for visible_layer in VISIBLE_LAYERS:
-			var tiledata = visible_layer.get_cell_tile_data(cell)
+			var tiledata = VISIBLE_LAYERS[i].get_cell_tile_data(cell)
 			if tiledata:
 				tiledata.modulate.a = 1
-	
 
 
 # Returns whether any tile (wall, floor, etc.) is at a given cell location
@@ -88,14 +83,7 @@ func raycast_tiles_arc(pos: Vector2, angle_start: float, angle_end: float) -> Ar
 				var test_pos = _wall_layer.local_to_map(lerp_pos)
 				if has_any_tile_at(test_pos):
 					res_tiles[test_pos] = true
-	queue_redraw()
 	return res_tiles.keys()
-
-
-func _draw() -> void:
-	for line in DEBUG:
-		draw_line(line[0], line[1], Color(Color.RED, 0.05))
-	
 
 
 # Move from a cell by a certain amount, and returns the net movement

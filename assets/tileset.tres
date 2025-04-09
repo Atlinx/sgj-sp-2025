@@ -1,9 +1,10 @@
-[gd_resource type="TileSet" load_steps=9 format=3 uid="uid://crmpkh0hh442s"]
+[gd_resource type="TileSet" load_steps=11 format=3 uid="uid://crmpkh0hh442s"]
 
 [ext_resource type="Texture2D" uid="uid://b35o5yiaywjne" path="res://assets/sprites/floor.png" id="1_ylah7"]
 [ext_resource type="Texture2D" uid="uid://d28t1cq8s54kn" path="res://assets/sprites/wall.png" id="2_fcvr3"]
 [ext_resource type="Texture2D" uid="uid://dsf7oxmurks7m" path="res://assets/sprites/floor_invert.png" id="3_fcvr3"]
 [ext_resource type="Texture2D" uid="uid://dsqiixgeqxah4" path="res://assets/sprites/floor_wood_large.png" id="4_7lii3"]
+[ext_resource type="Texture2D" uid="uid://8pkmwrbj23xu" path="res://assets/sprites/doors.png" id="5_uyjym"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7lii3"]
 texture = ExtResource("1_ylah7")
@@ -404,6 +405,15 @@ texture = ExtResource("4_7lii3")
 0:0/0/terrain_set = 0
 0:0/0/terrain = 1
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fk0lh"]
+texture = ExtResource("5_uyjym")
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 2
+0:0/0/terrains_peering_bit/top_side = 0
+1:0/0 = 0
+2:0/0 = 0
+
 [resource]
 physics_layer_0/collision_layer = 1
 terrain_set_0/mode = 0
@@ -411,7 +421,10 @@ terrain_set_0/terrain_0/name = "Wall"
 terrain_set_0/terrain_0/color = Color(0.632813, 0.632813, 0.632813, 1)
 terrain_set_0/terrain_1/name = "Floor"
 terrain_set_0/terrain_1/color = Color(0.315104, 0.315104, 0.315104, 1)
+terrain_set_0/terrain_2/name = "Door"
+terrain_set_0/terrain_2/color = Color(0.185493, 0.591258, 0.684896, 1)
 sources/0 = SubResource("TileSetAtlasSource_7lii3")
 sources/1 = SubResource("TileSetAtlasSource_uyjym")
 sources/2 = SubResource("TileSetAtlasSource_80oah")
 sources/3 = SubResource("TileSetAtlasSource_beawo")
+sources/5 = SubResource("TileSetAtlasSource_fk0lh")
