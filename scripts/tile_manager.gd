@@ -11,11 +11,91 @@ enum TerrainID {
 @export var _bg_color: Color
 @export var _wall_layer: TileMapLayer
 @export var _floor_layer: TileMapLayer
+@export var _visible_wall_layer: TileMapLayer
+@export var _visible_floor_layer: TileMapLayer
 
+var visible_tiles: Dictionary[Vector2i, bool] = {}
+
+@onready var VISIBLE_LAYERS: Array[TileMapLayer] = [_visible_wall_layer, _visible_floor_layer]
+@onready var LAYERS: Array[TileMapLayer] = [_wall_layer, _floor_layer]
 
 func _ready() -> void:
+	_floor_layer.visible = false
+	_wall_layer.visible = false
+	_visible_wall_layer.visible = true
+	_visible_floor_layer.visible = true
 	_init_walls()
 	RenderingServer.set_default_clear_color(_bg_color)
+
+
+func _process(delta: float) -> void:
+	# TODO: Later fix bug with incorrect fading
+	for visible_layer in VISIBLE_LAYERS:
+		for cell in visible_layer.get_used_cells():
+			if cell not in visible_tiles:
+				var tiledata = visible_layer.get_cell_tile_data(cell)
+				tiledata.modulate.a -= delta * 1
+				if tiledata.modulate.a <= 0:
+					visible_layer.set_cell(cell, -1)
+
+
+func set_visible_tiles(cells: Array[Vector2i]):
+	# TODO: Optimize if necessary
+	#_visible_wall_layer.clear()
+	#_visible_floor_layer.clear()
+	visible_tiles.clear()
+	for cell in cells:
+		visible_tiles[cell] = true
+		for i in len(VISIBLE_LAYERS):
+			VISIBLE_LAYERS[i].set_cell(cell, LAYERS[i].get_cell_source_id(cell), LAYERS[i].get_cell_atlas_coords(cell), LAYERS[i].get_cell_alternative_tile(cell))
+	
+	for cell in visible_tiles:
+		for visible_layer in VISIBLE_LAYERS:
+			var tiledata = visible_layer.get_cell_tile_data(cell)
+			if tiledata:
+				tiledata.modulate.a = 1
+	
+
+
+# Returns whether any tile (wall, floor, etc.) is at a given cell location
+func has_any_tile_at(cell: Vector2i) -> bool:
+	for layer in LAYERS:
+		if layer.get_cell_source_id(cell):
+			return true
+	return false
+
+
+var DEBUG = []
+
+func raycast_tiles_arc(pos: Vector2, angle_start: float, angle_end: float) -> Array[Vector2i]:
+	#print("raycast_tiles_arc: pos: %s start: %s end: %s" % [pos, angle_start, angle_end])
+	var res_tiles: Dictionary[Vector2i, bool] = {}
+	var space = get_world_2d().direct_space_state
+	var angle_divisions = ceil((angle_end - angle_start) * 50)
+	# TODO: Refactor this with more efficient + less flickery visibility algorithm: https://www.redblobgames.com/articles/visibility/
+	DEBUG.clear()
+	for i in range(angle_divisions + 1):
+		var angle = lerp(angle_start, angle_end, float(i) / angle_divisions)
+		var params = PhysicsRayQueryParameters2D.create(pos, pos + Vector2.from_angle(angle) * 1000)
+		var res = space.intersect_ray(params)
+		if not res.is_empty():
+			var raycast_pos: Vector2 = res["position"]
+			DEBUG.append([pos, raycast_pos])
+			raycast_pos += (raycast_pos - pos).normalized() * 8
+			var divisions = pos.distance_to(raycast_pos) / 5
+			for j in range(divisions + 1):
+				var lerp_pos = lerp(pos, raycast_pos, float(j) / divisions)
+				var test_pos = _wall_layer.local_to_map(lerp_pos)
+				if has_any_tile_at(test_pos):
+					res_tiles[test_pos] = true
+	queue_redraw()
+	return res_tiles.keys()
+
+
+func _draw() -> void:
+	for line in DEBUG:
+		draw_line(line[0], line[1], Color(Color.RED, 0.05))
+	
 
 
 # Move from a cell by a certain amount, and returns the net movement
