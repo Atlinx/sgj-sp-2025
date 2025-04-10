@@ -74,7 +74,7 @@ position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
 [node name="PlayerHitBox" type="Area2D" parent="." groups=["hitbox"]]
-scale = Vector2(1.54282, 2.05337)
+scale = Vector2(0.850556, 0.892781)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitBox"]
 shape = SubResource("CircleShape2D_ht1c8")
