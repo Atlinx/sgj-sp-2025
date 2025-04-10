@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://os56o6omgsr8" path="res://scripts/debug_draw.gd" id="3_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://26ayckv2ve4y" path="res://prefabs/player.tscn" id="3_tefeu"]
 [ext_resource type="Script" uid="uid://dnfbc4l3di13c" path="res://scripts/game_manager.gd" id="4_o6xl0"]
-[ext_resource type="Script" uid="uid://csv3lnjno02xr" path="res://scripts/inventory.gd" id="7_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://dy4pwe6o403kd" path="res://prefabs/key.tscn" id="4_tipki"]
 
 [node name="Main" type="Node"]
 
@@ -44,6 +44,24 @@ tile_set = ExtResource("2_tbgi4")
 collision_enabled = false
 script = ExtResource("3_o6xl0")
 
+[node name="Key" parent="World/TileManager" instance=ExtResource("4_tipki")]
+position = Vector2(51, 0)
+
+[node name="Key2" parent="World/TileManager" instance=ExtResource("4_tipki")]
+position = Vector2(93, -2)
+
+[node name="Key3" parent="World/TileManager" instance=ExtResource("4_tipki")]
+position = Vector2(132, 0)
+
+[node name="Key4" parent="World/TileManager" instance=ExtResource("4_tipki")]
+position = Vector2(37, 41)
+
+[node name="Key5" parent="World/TileManager" instance=ExtResource("4_tipki")]
+position = Vector2(83, 59)
+
+[node name="Key6" parent="World/TileManager" instance=ExtResource("4_tipki")]
+position = Vector2(127, 67)
+
 [node name="DebugDraw" type="Node2D" parent="World" node_paths=PackedStringArray("_tile_manager")]
 script = ExtResource("3_tbgi4")
 _tile_manager = NodePath("../TileManager")
@@ -63,4 +81,3 @@ grow_vertical = 2
 script = ExtResource("4_o6xl0")
 
 [node name="Inventory" type="Node" parent="."]
-script = ExtResource("7_o6xl0")

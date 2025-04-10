@@ -41,6 +41,10 @@ project/assembly_name="sgj-sp-2025"
 
 enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
 
+[global_group]
+
+hitbox=""
+
 [input]
 
 p1_left={

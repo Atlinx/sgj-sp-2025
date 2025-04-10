@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://26ayckv2ve4y"]
+[gd_scene load_steps=12 format=3 uid="uid://26ayckv2ve4y"]
 
 [ext_resource type="Script" uid="uid://d23yydn8as6ku" path="res://scripts/player.gd" id="1_4dohe"]
 [ext_resource type="Texture2D" uid="uid://cnujhdggmi20d" path="res://assets/sprites/player.png" id="2_r66lb"]
 [ext_resource type="Shader" uid="uid://dfui3lp8hsqys" path="res://assets/shaders/rot_shader.gdshader" id="3_1txc5"]
 [ext_resource type="Texture2D" uid="uid://6egp0p5uodrc" path="res://assets/sprites/flashlight.png" id="4_1txc5"]
+[ext_resource type="Script" uid="uid://bf3opfqe2q0kx" path="res://scripts/inventory.gd" id="5_ht1c8"]
 
 [sub_resource type="Animation" id="Animation_7mycd"]
 length = 0.001
@@ -40,6 +41,8 @@ _data = {
 &"move": SubResource("Animation_lquwl")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ht1c8"]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_4dohe"]
 radius = 100.0
 
@@ -47,7 +50,7 @@ radius = 100.0
 shader = ExtResource("3_1txc5")
 shader_parameter/pixel_scale = 1.0
 
-[node name="Player" type="Node2D" node_paths=PackedStringArray("_animation_player", "_flashlight_area", "_flashlight")]
+[node name="Player" type="Node2D" node_paths=PackedStringArray("_animation_player", "_flashlight_area", "_flashlight", "inventory")]
 z_index = 10
 script = ExtResource("1_4dohe")
 move_cooldown = 0.1
@@ -55,6 +58,7 @@ interact_angle_width = 90.0
 _animation_player = NodePath("AnimationPlayer")
 _flashlight_area = NodePath("FlashlightArea2D")
 _flashlight = NodePath("Flashlight")
+inventory = NodePath("CanvasLayer/inventory")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -69,6 +73,12 @@ texture = ExtResource("2_r66lb")
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
+[node name="PlayerHitBox" type="Area2D" parent="." groups=["hitbox"]]
+scale = Vector2(1.54282, 2.05337)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitBox"]
+shape = SubResource("CircleShape2D_ht1c8")
+
 [node name="FlashlightArea2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FlashlightArea2D"]
@@ -80,3 +90,60 @@ material = SubResource("ShaderMaterial_ht1c8")
 [node name="Sprite2D" type="Sprite2D" parent="Flashlight"]
 position = Vector2(1, 0)
 texture = ExtResource("4_1txc5")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="inventory" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("5_ht1c8")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/inventory"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -133.5
+offset_top = -25.0
+offset_right = 133.5
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/inventory/HBoxContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/inventory/HBoxContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="PanelContainer3" type="PanelContainer" parent="CanvasLayer/inventory/HBoxContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="PanelContainer4" type="PanelContainer" parent="CanvasLayer/inventory/HBoxContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="PanelContainer5" type="PanelContainer" parent="CanvasLayer/inventory/HBoxContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="PanelContainer6" type="PanelContainer" parent="CanvasLayer/inventory/HBoxContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="PanelContainer7" type="PanelContainer" parent="CanvasLayer/inventory/HBoxContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2

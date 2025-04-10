@@ -30,6 +30,7 @@ var _real_interact_angle: float
 
 var _interact_angle_from: float
 
+@export var inventory : Control
 
 func _ready() -> void:
 	_update_position()

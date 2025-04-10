@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dy4pwe6o403kd"]
+
+[ext_resource type="Script" uid="uid://dimfc72yqpei7" path="res://scripts/key.gd" id="1_gqaf4"]
+[ext_resource type="Texture2D" uid="uid://biaxcs3ti1wfe" path="res://icon.svg" id="1_prtrg"]
+[ext_resource type="PackedScene" uid="uid://dtuhd5ib6ogh8" path="res://prefabs/key_inventory.tscn" id="2_wc646"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gqaf4"]
+
+[node name="Key" type="Node2D"]
+script = ExtResource("1_gqaf4")
+key_inventory = ExtResource("2_wc646")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_prtrg")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_gqaf4")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

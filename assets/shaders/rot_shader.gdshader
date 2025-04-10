@@ -17,7 +17,7 @@ bool different(vec4 c1, vec4 c2, vec4 input) {
 }
 
 // rotsprite 3x enlargement algorithm:
-// suppose we are looking at input pixel cE which is surrounded by 8 other 
+// suppose we are looking at input pixel cE which is surrounded by 8 other
 // pixels:
 //  cA cB cC
 //  cD cE cF
@@ -29,7 +29,7 @@ bool different(vec4 c1, vec4 c2, vec4 input) {
 vec4 scale3x(sampler2D tex, vec2 uv, vec2 pixel_size) {
 	vec4 cE = texture(tex, uv);
 	cE = cE.a == 0.0 ? background : cE;
-	
+
 	vec4 cD = texture(tex, uv + pixel_size * vec2(-1., .0));
 	cD = cD.a == 0.0 ? background : cD;
 	vec4 cF = texture(tex, uv + pixel_size * vec2(1., .0));
@@ -46,7 +46,7 @@ vec4 scale3x(sampler2D tex, vec2 uv, vec2 pixel_size) {
 	cG = cG.a == 0.0 ? background : cG;
 	vec4 cC = texture(tex, uv + pixel_size * vec2(1., -1.));
 	cC = cC.a == 0.0 ? background : cC;
-	
+
 	if (different(cD,cF, cE)
      && different(cH,cB, cE)
      && ((similar(cE, cD, cE) || similar(cE, cH, cE) || similar(cE, cF, cE) || similar(cE, cB, cE) ||
@@ -55,53 +55,53 @@ vec4 scale3x(sampler2D tex, vec2 uv, vec2 pixel_size) {
     {
 		vec2 unit = uv - (floor(uv / pixel_size) * pixel_size);
 		vec2 pixel_3_size = pixel_size / 3.0;
-		
+
 		// E0
 		if (unit.x < pixel_3_size.x && unit.y < pixel_3_size.y) {
 			return similar(cB, cD, cE) ? cB : cE;
 		}
-		
-		
+
+
 		// E1
 		if (unit.x < pixel_3_size.x * 2.0 && unit.y < pixel_3_size.y) {
 			return (similar(cB, cD, cE) && different(cE, cC, cE))
 				|| (similar(cB, cF, cE) && different(cE, cA, cE)) ? cB : cE;
 		}
-		
+
 		// E2
 		if (unit.y < pixel_3_size.y) {
 			return similar(cB, cF, cE) ? cB : cE;
 		}
-		
+
 		// E3
 		if (unit.x < pixel_3_size.x && unit.y < pixel_3_size.y * 2.0) {
 			return (similar(cB, cD, cE) && different(cE, cG, cE)
 				|| (similar(cH, cD, cE) && different(cE, cA, cE))) ? cD : cE;
 		}
-		
+
 		// E5
 		if (unit.x >= pixel_3_size.x * 2.0 && unit.x < pixel_3_size.x * 3.0 && unit.y < pixel_3_size.y * 2.0) {
 			return (similar(cB, cF, cE) && different(cE, cI, cE))
 				|| (similar(cH, cF, cE) && different(cE, cC, cE)) ? cF : cE;
 		}
-		
+
 		// E6
 		if (unit.x < pixel_3_size.x && unit.y >= pixel_3_size.y * 2.0) {
 			return similar(cH, cD, cE) ? cH : cE;
 		}
-		
+
 		// E7
 		if (unit.x < pixel_3_size.x * 2.0 && unit.y >= pixel_3_size.y * 2.0) {
 			return (similar(cH, cD, cE) && different(cE, cI, cE))
 				|| (similar(cH, cF, cE) && different(cE, cG, cE)) ? cH : cE;
 		}
-		
+
 		// E8
 		if (unit.y >= pixel_3_size.y * 2.0) {
 			return similar(cH, cF, cE) ? cH : cE;
 		}
     }
-	
+
 	return cE;
 }
 

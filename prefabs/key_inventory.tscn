@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtuhd5ib6ogh8"]
+
+[ext_resource type="Script" uid="uid://kb4u062k5s5n" path="res://scripts/key_inventory.gd" id="1_sbta3"]
+[ext_resource type="Texture2D" uid="uid://biaxcs3ti1wfe" path="res://icon.svg" id="1_udk50"]
+
+[node name="KeyInventory" type="TextureRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+tooltip_text = "key"
+texture = ExtResource("1_udk50")
+expand_mode = 1
+script = ExtResource("1_sbta3")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
