@@ -50,6 +50,15 @@ position = Vector2(51, 0)
 [node name="Key2" parent="World/TileManager" instance=ExtResource("4_tipki")]
 position = Vector2(93, -2)
 
+[node name="Key7" parent="World/TileManager" instance=ExtResource("4_tipki")]
+position = Vector2(68, 29)
+
+[node name="Key8" parent="World/TileManager" instance=ExtResource("4_tipki")]
+position = Vector2(10, 60)
+
+[node name="Key9" parent="World/TileManager" instance=ExtResource("4_tipki")]
+position = Vector2(41, 66)
+
 [node name="Key3" parent="World/TileManager" instance=ExtResource("4_tipki")]
 position = Vector2(132, 0)
 

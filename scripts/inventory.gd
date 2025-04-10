@@ -13,7 +13,8 @@ func add_stuff(stuff):
 	for i in $HBoxContainer.get_children():
 		if i.get_children() == [] :
 			empty_slot += 1
+	print(empty_slot)
 	if empty_slot == 0:
-		full == true
+		full = true
 	else:
-		full == false
+		full = false
