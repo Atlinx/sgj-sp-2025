@@ -1,14 +1,20 @@
 extends Node2D
 
+@export var sprite : Sprite2D
+@export var item : Item
 @export var key_inventory : PackedScene 
 var player_overlap : bool = false
 var inventory :Inventory
+
+func _ready() -> void:
+	sprite.texture = item.texture
+
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("hitbox"):
 		inventory = area.get_parent().inventory
 		player_overlap = true
-		
+
 func _on_area_2d_area_exited(area: Area2D) -> void:
 	if area.is_in_group("hitbox"):
 		player_overlap = false

@@ -1,10 +1,9 @@
-[gd_resource type="TileSet" load_steps=13 format=3 uid="uid://crmpkh0hh442s"]
+[gd_resource type="TileSet" load_steps=11 format=3 uid="uid://crmpkh0hh442s"]
 
 [ext_resource type="Texture2D" uid="uid://b35o5yiaywjne" path="res://assets/sprites/floor.png" id="1_ylah7"]
 [ext_resource type="Texture2D" uid="uid://d28t1cq8s54kn" path="res://assets/sprites/wall.png" id="2_fcvr3"]
 [ext_resource type="Texture2D" uid="uid://dsf7oxmurks7m" path="res://assets/sprites/floor_invert.png" id="3_fcvr3"]
 [ext_resource type="Texture2D" uid="uid://dsqiixgeqxah4" path="res://assets/sprites/floor_wood_large.png" id="4_7lii3"]
-[ext_resource type="PackedScene" uid="uid://dy4pwe6o403kd" path="res://prefabs/key.tscn" id="5_80oah"]
 [ext_resource type="Texture2D" uid="uid://8pkmwrbj23xu" path="res://assets/sprites/doors.png" id="5_uyjym"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7lii3"]
@@ -406,9 +405,6 @@ texture = ExtResource("4_7lii3")
 0:0/0/terrain_set = 0
 0:0/0/terrain = 1
 
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_beawo"]
-scenes/1/scene = ExtResource("5_80oah")
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fk0lh"]
 texture = ExtResource("5_uyjym")
 0:0/0 = 0
@@ -432,4 +428,3 @@ sources/1 = SubResource("TileSetAtlasSource_uyjym")
 sources/2 = SubResource("TileSetAtlasSource_80oah")
 sources/3 = SubResource("TileSetAtlasSource_beawo")
 sources/5 = SubResource("TileSetAtlasSource_fk0lh")
-sources/4 = SubResource("TileSetScenesCollectionSource_beawo")
