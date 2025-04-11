@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="KeyItem" load_steps=2 format=3 uid="uid://78t7n7ehh8f2"]
+
+[ext_resource type="Script" uid="uid://bp1bn2geg40jy" path="res://scripts/key_item.gd" id="1_uoa5m"]
+
+[resource]
+script = ExtResource("1_uoa5m")
+key_color = Color(0.869792, 0.158556, 0.158556, 1)
+name = "Red Key"
+description = "A glistening red key"
+metadata/_custom_type_script = "uid://bp1bn2geg40jy"

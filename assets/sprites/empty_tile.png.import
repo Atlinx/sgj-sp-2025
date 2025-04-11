@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1rccg0bsk6e7"
-path="res://.godot/imported/flashlight_long.png-74a4d7fa7cb498bdf00f365b7501adc1.ctex"
+uid="uid://diy1wreshwppa"
+path="res://.godot/imported/empty_tile.png-3c6f34e83341ac64963e86840b0e08b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/flashlight_long.png"
-dest_files=["res://.godot/imported/flashlight_long.png-74a4d7fa7cb498bdf00f365b7501adc1.ctex"]
+source_file="res://assets/sprites/empty_tile.png"
+dest_files=["res://.godot/imported/empty_tile.png-3c6f34e83341ac64963e86840b0e08b0.ctex"]
 
 [params]
 

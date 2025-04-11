@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://d23yydn8as6ku" path="res://scripts/player.gd" id="1_4dohe"]
 [ext_resource type="Texture2D" uid="uid://cnujhdggmi20d" path="res://assets/sprites/player.png" id="2_r66lb"]
 [ext_resource type="Shader" uid="uid://dfui3lp8hsqys" path="res://assets/shaders/rot_shader.gdshader" id="3_1txc5"]
-[ext_resource type="Texture2D" uid="uid://6egp0p5uodrc" path="res://assets/sprites/flashlight.png" id="4_1txc5"]
+[ext_resource type="Texture2D" uid="uid://6egp0p5uodrc" path="res://assets/sprites/item/flashlight.png" id="4_1txc5"]
 
 [sub_resource type="Animation" id="Animation_7mycd"]
 length = 0.001
@@ -73,6 +73,7 @@ position_smoothing_speed = 10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FlashlightArea2D"]
 shape = SubResource("CircleShape2D_4dohe")
+debug_color = Color(0, 0.6, 0.701961, 0.141176)
 
 [node name="Flashlight" type="Node2D" parent="."]
 material = SubResource("ShaderMaterial_ht1c8")

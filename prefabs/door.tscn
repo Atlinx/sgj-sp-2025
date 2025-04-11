@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvkh08tk2m60n"]
+
+[ext_resource type="Script" uid="uid://ewyru36twu7f" path="res://scripts/door.gd" id="1_gx6vt"]
+[ext_resource type="Resource" uid="uid://78t7n7ehh8f2" path="res://resources/items/key_red.tres" id="2_iv2is"]
+[ext_resource type="Texture2D" uid="uid://8pkmwrbj23xu" path="res://assets/sprites/doors.png" id="3_08et4"]
+
+[node name="Door" type="Node2D" node_paths=PackedStringArray("_door_open", "_door_closed", "_door_key")]
+script = ExtResource("1_gx6vt")
+key = ExtResource("2_iv2is")
+_door_open = NodePath("DoorOpen")
+_door_closed = NodePath("DoorClosed")
+_door_key = NodePath("DoorClosed/DoorKey")
+
+[node name="DoorOpen" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_08et4")
+region_enabled = true
+region_rect = Rect2(16, 0, 16, 16)
+
+[node name="DoorClosed" type="Sprite2D" parent="."]
+texture = ExtResource("3_08et4")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="DoorKey" type="Sprite2D" parent="DoorClosed"]
+visible = false
+self_modulate = Color(0.869792, 0.158556, 0.158556, 1)
+texture = ExtResource("3_08et4")
+region_enabled = true
+region_rect = Rect2(32, 0, 16, 16)
