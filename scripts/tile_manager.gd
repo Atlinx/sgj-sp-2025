@@ -71,17 +71,10 @@ func _process(delta: float) -> void:
 			if entity.modulate.a <= 0:
 				tile_entity_alphas.erase(entity)
 				entity.visible = false
-				entity.modulate.a = 1
 		
 	# Fade tiles
 	for visible_layer in VISIBLE_LAYERS:
-		for cell in visible_layer.cell_alphas.keys():
-			if cell not in visible_tiles:
-				# Only fade out tiles that are no longer visible
-				visible_layer.cell_alphas[cell] -= delta * fade_speed
-				if visible_layer.cell_alphas[cell] <= 0:
-					visible_layer.set_cell(cell, -1)
-					visible_layer.cell_alphas.erase(cell)
+		visible_layer.visible_tiles = visible_tiles
 
 
 func local_to_map(local_pos: Vector2) -> Vector2i:
@@ -159,22 +152,20 @@ func remove_tile_entity(entity: TileEntity):
 
 
 func set_visible_tiles(cells: Array[Vector2i]):
-	var new_visible_tiles = []
-	for cell in cells:
-		if cell not in visible_tiles:
-			new_visible_tiles.append(cell)
+	# Update newly visible tiles
 	visible_tiles.clear()
 	for cell in cells:
 		visible_tiles[cell] = true
-	# Update newly visible tiles
-	for cell in new_visible_tiles:
 		for entity in get_tile_entities_at(cell):
 			# Make entity visible
 			entity.visible = true
+			entity.modulate.a = 1.0
 			tile_entity_alphas[entity] = true
 		for i in len(VISIBLE_LAYERS):
 			VISIBLE_LAYERS[i].set_cell(cell, LAYERS[i].get_cell_source_id(cell), LAYERS[i].get_cell_atlas_coords(cell), LAYERS[i].get_cell_alternative_tile(cell))
-			VISIBLE_LAYERS[i].cell_alphas[cell] = 1.0
+			var tiledata = VISIBLE_LAYERS[i].get_cell_tile_data(cell)
+			if tiledata:
+				tiledata.modulate.a = 1
 
 
 # Returns whether any tile (wall, floor, etc.) is at a given cell location
